@@ -129,18 +129,23 @@ class WeatherComponent extends LitElement {
     this.weather = null;
     
     try {
-      // Using OpenWeatherMap API (free tier)
-      // Note: In production, you'd want to use environment variables for the API key
-      const API_KEY = 'ADD_KEY_HERE'; // You'll need to get a free API key from openweathermap.org
+      // Use Netlify function proxy to keep API key secure
+      const baseUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:8888/.netlify/functions' // Local Netlify dev
+        : '/.netlify/functions'; // Production
+      
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.country}&appid=${API_KEY}&units=metric`
+        `${baseUrl}/weather?city=${encodeURIComponent(this.city)}&country=${encodeURIComponent(this.country)}`
       );
       
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
         if (response.status === 401) {
           this.error = 'API key invalid. Please check your OpenWeatherMap API key.';
         } else if (response.status === 404) {
           this.error = `Weather data not found for ${this.city}.`;
+        } else if (response.status === 500 && errorData.error) {
+          this.error = errorData.error;
         } else {
           this.error = `Weather service unavailable (Error ${response.status}).`;
         }

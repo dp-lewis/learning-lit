@@ -339,26 +339,23 @@ class PremierLeagueStandings extends LitElement {
     this.standings = [];
 
     try {
-      // API-Football endpoint for Premier League standings
-      const API_KEY = 'ADD_KEY_HERE';
-      const LEAGUE_ID = 39; // Premier League ID
+      // Use Netlify function proxy to keep API key secure
+      const baseUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:8888/.netlify/functions' // Local Netlify dev
+        : '/.netlify/functions'; // Production
       
       const response = await fetch(
-        `https://v3.football.api-sports.io/standings?league=${LEAGUE_ID}&season=${this.season}`,
-        {
-          method: 'GET',
-          headers: {
-            'x-rapidapi-key': API_KEY,
-            'x-rapidapi-host': 'v3.football.api-sports.io'
-          }
-        }
+        `${baseUrl}/football?season=${this.season}`
       );
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
         if (response.status === 401) {
           this.error = 'API key invalid. Please check your API-Football key.';
         } else if (response.status === 429) {
           this.error = 'API rate limit exceeded. Please try again later.';
+        } else if (response.status === 500 && errorData.error) {
+          this.error = errorData.error;
         } else {
           this.error = `Football API unavailable (Error ${response.status}).`;
         }
