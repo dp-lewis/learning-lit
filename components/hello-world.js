@@ -1,5 +1,5 @@
 // Import Lit from CDN (using Skypack for ES modules)
-import { LitElement, html, css } from 'https://cdn.skypack.dev/lit@3';
+import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
 // Define our Hello World component
 class HelloWorld extends LitElement {
