@@ -51,26 +51,27 @@
             <hello-world></hello-world>
         </div>
     </div>
-    
-    <div class="section">
-        <h2>Hello World with Name</h2>
-        <p>Same component with a custom name property:</p>
+
+        <div class="section">
+        <h2>Weather Components</h2>
+        <p>Generic weather component showing different cities:</p>
         <div class="component-demo">
-            <hello-world name="Lit Developer"></hello-world>
+            <weather-component city="Sydney" country="AU"></weather-component>
         </div>
     </div>
     
     <div class="section">
-        <h2>Multiple Instances</h2>
-        <p>Web components can be used multiple times:</p>
+        <h2>Multiple Cities</h2>
+        <p>Weather for different cities around the world:</p>
         <div class="component-demo">
-            <hello-world name="Alice"></hello-world>
-            <hello-world name="Bob"></hello-world>
-            <hello-world></hello-world>
+            <weather-component city="London" country="GB"></weather-component>
+            <weather-component city="Tokyo" country="JP"></weather-component>
+            <weather-component city="New York" country="US"></weather-component>
         </div>
     </div>
 
     <!-- Import our components -->
     <script type="module" src="./components/hello-world.js"></script>
+    <script type="module" src="./components/weather-component.js"></script>
 </body>
 </html>
