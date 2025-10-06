@@ -340,7 +340,7 @@ class PremierLeagueStandings extends LitElement {
 
     try {
       // API-Football endpoint for Premier League standings
-      const API_KEY = '579c5cf581f0db73aff67800520d8beb';
+      const API_KEY = 'ADD_KEY_HERE';
       const LEAGUE_ID = 39; // Premier League ID
       
       const response = await fetch(

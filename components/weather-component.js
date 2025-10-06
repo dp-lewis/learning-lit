@@ -131,7 +131,7 @@ class WeatherComponent extends LitElement {
     try {
       // Using OpenWeatherMap API (free tier)
       // Note: In production, you'd want to use environment variables for the API key
-      const API_KEY = '127859e0c14fbb66a2ac0a6e4ad3e417'; // You'll need to get a free API key from openweathermap.org
+      const API_KEY = 'ADD_KEY_HERE'; // You'll need to get a free API key from openweathermap.org
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.country}&appid=${API_KEY}&units=metric`
       );
